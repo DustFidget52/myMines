@@ -5,6 +5,85 @@
     <title>Title</title>
 </head>
 <body>
+<canvas id="myCanvas" width="1500" height="1500">
 
+</canvas>
+
+<script>
+    let myCanvas = document.getElementById("myCanvas");
+    let myContext = myCanvas.getContext("2d");
+    let rows = [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    ];
+    let cellSize = 50;
+    let startPoint = [50,50];
+
+    function placeBombs() {
+        for (let i = 0; i < rows.length; i++) {
+            for (let j = 0; j < rows[0].length; j++) {
+                if (Math.random() < 0.1) {
+                    rows[i][j] = -1;
+                } else {
+                    rows[i][j] = 0;
+                }
+            }
+        }
+    }
+
+    function cellValue() {
+        if (drawCell == placeBombs) {
+            // if random generated cell has same value as a bomb, placeBomb
+        } else if (drawCell == randomNumber) {
+            // if random generated cell shares the value as a number, placeNumber
+        }
+    }
+
+    function init() {
+        placeBombs();
+        drawBoard();
+
+    }
+
+
+    function drawBoard() {
+         for (let i = 0; i < rows.length; i++) {
+            for (let j = 0; j < rows[0].length; j++) {
+                 drawCell(i,j);
+             }
+         }
+    }
+
+    function drawCell(row, column) {
+        myContext.beginPath();
+        myContext.moveTo(cellSize*column,cellSize*row);
+        myContext.lineTo(cellSize*(column+1),cellSize*(row));
+        myContext.lineTo(cellSize*(column+1),cellSize*(row+1));
+        myContext.lineTo(cellSize*column,cellSize*(row+1));
+        myContext.lineTo(cellSize*column+1,cellSize*row);
+
+
+
+        myContext.stroke();
+        myContext.closePath();
+    }
+
+    function revealItem() {
+        // onclick(reveal something)
+    }
+
+    init();
+
+</script>
 </body>
 </html>
