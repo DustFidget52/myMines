@@ -59,7 +59,7 @@
 
             }
         }
-        if (x < cells.length + 1 && y > 0) {
+        if (x < cells.length - 1 && y > 0) {
             if (cells[x + 1][y - 1] === -1) {
                 bombCount++
 
@@ -83,7 +83,7 @@
 
             }
         }
-            if (x < cells.length + 1 && y < cells.length) {
+            if (x < cells.length - 1 && y < cells.length) {
                 if (cells[x + 1][y] === -1) {
                     bombCount++
 
@@ -113,8 +113,8 @@
 
         placeBombs();
 
-        drawBoard();
         calcValue();
+        drawBoard();
     }
 
 
@@ -126,14 +126,17 @@
          }
     }
 
-    function drawCell(row, column) {
+    function drawCell(row, column, showValue=false) {
         myContext.beginPath();
         myContext.moveTo(cellSize*column,cellSize*row);
         myContext.lineTo(cellSize*(column+1),cellSize*(row));
         myContext.lineTo(cellSize*(column+1),cellSize*(row+1));
         myContext.lineTo(cellSize*column,cellSize*(row+1));
         myContext.lineTo(cellSize*column+1,cellSize*row);
-
+        if (showValue) {
+            myContext.font = "30px serif"
+            myContext.fillText("text", cellSize*column, row)
+        }
 
 
 
@@ -160,13 +163,6 @@
 
     }
 
-    function processClick(x,y) {
-        x = Math.floor(x/cellSize);
-        y = Math.floor(y/cellSize);
-        console.log(cellValue(x,y));
-
-    }
-
     function getCurPos(canvas, event) {
         let rect = canvas.getBoundingClientRect();
         let x = event.clientX - rect.left;
@@ -180,6 +176,12 @@
         getCurPos(myCanvas, e);
     });
 
+    function processClick(x,y) {
+        x = Math.floor(x/cellSize);
+        y = Math.floor(y/cellSize);
+        console.log(cellValue(x,y));
+        drawCell(x,y,true);
+    }
 
 </script>
 </body>
